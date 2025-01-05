@@ -33,6 +33,7 @@ app.use(cors({
         callback(new Error('Not allowed by CORS'));
       }
     },
+    methods: 'GET,POST,PUT,DELETE', // Specify allowed HTTP methods
     credentials: true, // Include credentials if required
   }));
 app.use(express.urlencoded({extended:true}));
