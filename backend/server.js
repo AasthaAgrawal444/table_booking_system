@@ -16,9 +16,25 @@ connectDB();
 // Initialize app
 const app = express();
 
+
+const allowedOrigins = [
+    'http://localhost:3000',
+    'https://table-booking-system-tan.vercel.app', // Add your deployed client origin
+  ];
+
 // Middleware
 app.use(express.json());
-app.use(cors({origin: "http://localhost:3000"}));
+
+app.use(cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true, // Include credentials if required
+  }));
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
